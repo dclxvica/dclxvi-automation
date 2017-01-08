@@ -1,0 +1,24 @@
+sudo_group: dclxvi
+
+user_groups: adm,wheel,dclxvi 
+
+users:
+  - name: eottmic
+    key: "{{ lookup('file', 'eottmic.id_rsa.pub') }}"
+    groups: "{{ user_groups }}"
+  - name: eponcar
+    key: "{{ lookup('file', 'eponcar.id_rsa.pub') }}"
+    groups: "{{ user_groups }}"
+
+packages:
+  - collectd
+  - nginx
+  - certbot 
+
+services:
+  - collectd
+  - nginx
+
+selinux_http_ports_allow:
+  - 3000
+  - 8086

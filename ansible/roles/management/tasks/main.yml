@@ -1,0 +1,9 @@
+- package:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ packages }}"
+- service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+  with_items: "{{ services }}"

@@ -1,0 +1,47 @@
+- hostname: name={{ hostname }}
+- timezone:
+    name: "{{ timezone }}"
+- group:
+    name: "{{ sudo_group }}"
+    state: present
+- name: Allow {{ sudo_group }} group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^%{{ sudo_group }}"
+    line: "%{{ sudo_group }} ALL=(ALL) NOPASSWD: ALL"
+- user:
+    name: "{{ item.name }}"
+    groups: "{{ item.groups }}"
+    append: yes
+  with_items: "{{ users }}"
+- authorized_key:
+    user: "{{ item.name }}"
+    state: present
+    key: "{{ item.key }}"
+  with_items: "{{ users }}"
+- package:
+   name: "{{ item }}"
+  with_items: "{{ packages }}"
+- template:
+   src: collectd.conf.j2
+   dest: /etc/collectd.conf
+   backup: yes
+- service:
+   name: "{{ item }}"
+   state: started
+   enabled: yes
+  with_items: "{{ services }}"
+- seport:
+    ports: "{{ item }}"
+    proto: tcp
+    setype: http_port_t
+    state: present
+  with_items: "{{ selinux_http_ports_allow }}"
+- cron:
+    name: certbot autoupdate
+    weekday: 2
+    minute: 0
+    hour: 0
+    user: root
+    job: "service nginx stop;certbot renew;service nginx start"

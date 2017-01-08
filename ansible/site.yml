@@ -1,0 +1,14 @@
+- hosts: yum
+  become: yes
+  roles:
+  - yum
+
+- hosts: all
+  become: yes
+  roles: 
+  - common
+
+- hosts: management
+  become: yes
+  roles: 
+  - management

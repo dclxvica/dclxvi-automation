@@ -1,0 +1,7 @@
+packages:
+  - influxdb
+  - grafana
+
+services:
+  - influxdb
+  - grafana-server

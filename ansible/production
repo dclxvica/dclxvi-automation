@@ -1,0 +1,9 @@
+[management]
+mgmt.dclxvi.ca
+
+[services]
+apps.dclxvi.ca
+
+[yum]
+mgmt.dclxvi.ca
+apps.dclxvi.ca

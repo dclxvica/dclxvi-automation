@@ -1,0 +1,22 @@
+- yum_repository:
+      name: epel
+      description: EPEL YUM repo
+      baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+      gpgkey: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-$releasever
+      enabled: yes
+
+- yum_repository:
+      name: influxdb
+      description: InfluxDB YUM repo
+      baseurl: https://repos.influxdata.com/rhel/$releasever/$basearch/stable
+      gpgkey: https://repos.influxdata.com/influxdb.key
+      enabled: yes
+
+- yum_repository:
+      name: grafana
+      description: grafana YUM repo
+      baseurl: https://packagecloud.io/grafana/stable/el/6/$basearch
+      gpgkey: https://packagecloud.io/gpg.key https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana
+      sslverify: yes
+      sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+      enabled: yes
